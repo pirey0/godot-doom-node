@@ -1174,10 +1174,10 @@ void DOOM::doom_process(double delta) {
 }
 
 void DOOM::set_key_external(Key k, bool pressed) {
-	if (pressed && !_keys_pressed_queue.has(active_key)) {
-		_keys_pressed_queue.append(active_key);
-	} else if (!pressed && !_keys_released_queue.has(active_key)) {
-		_keys_released_queue.append(active_key);
+	if (pressed && !_keys_pressed_queue.has(k)) {
+		_keys_pressed_queue.append(k);
+	} else if (!pressed && !_keys_released_queue.has(k)) {
+		_keys_released_queue.append(k);
 	}
 }
 

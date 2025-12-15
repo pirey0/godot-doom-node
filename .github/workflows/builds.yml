@@ -38,16 +38,13 @@ jobs:
             pkg-config \
             fluidsynth \
             libfluidsynth-dev \
+            libsdl2-dev \
             mingw-w64
 
       - name: Build
         shell: bash
         run: |
           if [ "${{ matrix.target.platform }}" = "windows" ]; then
-            export CC=x86_64-w64-mingw32-gcc
-            export CXX=x86_64-w64-mingw32-g++
-            export PKG_CONFIG_PATH=/usr/x86_64-w64-mingw32/lib/pkgconfig
-
             scons \
               platform=windows \
               arch=x86_64 \
