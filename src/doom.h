@@ -190,6 +190,8 @@ public:
 
 	void doom_ready();
 	void doom_process(double p_delta);
+	void set_key_external(Key k, bool pressed);
+	void set_capture_input_directly(bool value);
 
 	void _input(const Ref<InputEvent> &event) override;
 };

@@ -129,6 +129,9 @@ void DOOM::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_autosave"), &DOOM::get_autosave);
 	ClassDB::bind_method(D_METHOD("set_autosave", "autosave"), &DOOM::set_autosave);
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "autosave"), "set_autosave", "get_autosave");
+
+	ClassDB::bind_method(D_METHOD("set_key_external","key","value"), &DOOM::set_key_external);
+	ClassDB::bind_method(D_METHOD("set_capture_input_directly","value"), &DOOM::set_capture_input_directly);
 }
 
 void DOOM::_input(const Ref<InputEvent> &event) {
@@ -1168,6 +1171,18 @@ void DOOM::doom_process(double delta) {
 		}
 		_keys_pressed.clear();
 	}
+}
+
+void DOOM::set_key_external(Key k, bool pressed) {
+	if (pressed && !_keys_pressed_queue.has(active_key)) {
+		_keys_pressed_queue.append(active_key);
+	} else if (!pressed && !_keys_released_queue.has(active_key)) {
+		_keys_released_queue.append(active_key);
+	}
+}
+
+void DOOM::set_capture_input_directly(bool value) {
+	set_process_input(value);
 }
 
 void DOOM::_notification(int p_what) {
